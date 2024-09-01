@@ -22,10 +22,17 @@ app.post("/submit", (req, res) => {
     margin: 2,
   });
 
-  res.set("Content-Type", "image/png");
-  qrCode.pipe(res);
+  const buffer = [];
+  qrCode.on("data", (chunk) => {
+    buffer.push(chunk);
+  });
+  qrCode.on("end", () => {
+    const imageData = Buffer.concat(buffer);
+    res.set("Content-Type", "image/png");
+    res.set("Content-Disposition", "inline; filename='qr_code.png'");
+    res.send(imageData);
+  });
 });
-
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);

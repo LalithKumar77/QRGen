@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+</head>
+<body>
+    <div id="Pr-name"><h1>QR Code Generator</h1></div>
+    <form action="/submit" method="post">
+        <input type="text" name="text" placeholder="Enter text to generate QR code">
+        <input id="btn" type="submit" value="Generate QR Code">
+    </form>
+    <div id="qr-code-container" style="display: none;">
+        <img id="qr-code" src="" alt="QR Code">
+        <a href="./qr-code.png" download="qr-code.png">Download</a>
+    </div>
+    
+    <script>
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = document.querySelector('input[name="text"]').value;
+            fetch('/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `text=${text}`,
+            })
+            .then((response) => response.blob())
+            .then((blob) => {
+                const img = document.querySelector('#qr-code');
+                img.src = URL.createObjectURL(blob);
+                document.querySelector('#qr-code-container').style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>

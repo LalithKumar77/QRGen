@@ -15,7 +15,7 @@
     </form>
     <div id="qr-code-container" style="display: none;">
         <img id="qr-code" src="" alt="QR Code">
-        <a href="./qr-code.png" download="qr-code.png">Download</a>
+        <a id="download-link" style="display: none;">Download QR Code</a>
     </div>
     
     <script>
@@ -25,14 +25,23 @@
             const text = document.querySelector('input[name="text"]').value;
             fetch('/submit', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: `text=${text}`,
+                body: new URLSearchParams({ text }),
             })
-            .then((response) => response.blob())
-            .then((blob) => {
+            .then((response) => response.arrayBuffer())
+            .then((arrayBuffer) => {
+                const blob = new Blob([arrayBuffer], { type: 'image/png' });
+                const url = URL.createObjectURL(blob);
                 const img = document.querySelector('#qr-code');
-                img.src = URL.createObjectURL(blob);
+                img.src = url;
                 document.querySelector('#qr-code-container').style.display = 'block';
+                
+                const a = document.querySelector('#download-link');
+                a.href = url;
+                a.download = 'qr_code.png';
+                a.style.display = 'block';
+            })
+            .catch((error) => {
+                console.error('Error generating QR code:', error);
             });
         });
     </script>

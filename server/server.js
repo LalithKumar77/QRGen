@@ -1,17 +1,17 @@
 import express from "express";
 import { fileURLToPath } from "url";
-import { dirname } from "path";
+import { dirname ,join} from "path";
 import bodyParser from "body-parser";
 import qr from "qr-image";
 
 const dir = dirname(fileURLToPath(import.meta.url));
 const port = 3000;
 const app = express();
-app.use(express.static(dir));
+app.use(express.static(join(dir,'../public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-  res.sendFile(dir + "/index.html");
+  res.sendFile(join(dir , "../public/index.html"));
 });
 
 app.post("/submit", (req, res) => {
@@ -35,5 +35,6 @@ app.post("/submit", (req, res) => {
 });
 
 app.listen(port, () => {
+  console.log(`Server is Running on `);
   console.log(`http://localhost:${port}`);
 });

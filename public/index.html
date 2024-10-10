@@ -9,7 +9,7 @@
 </head>
 <body>
     <div id="Pr-name"><h1>QR Code Generator</h1></div>
-    <form action="/submit" method="post">
+    <form id="qr-form">
         <input type="text" name="text" placeholder="Enter text to generate QR code" required>
         <input id="btn" type="submit" value="Generate QR Code">
     </form>
@@ -19,15 +19,20 @@
     </div>
     
     <script>
-        const form = document.querySelector('form');
+        const form = document.getElementById('qr-form');
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             const text = document.querySelector('input[name="text"]').value;
-            fetch('/submit', {
+            fetch('/api/submit', {  
                 method: 'POST',
                 body: new URLSearchParams({ text }),
             })
-            .then((response) => response.arrayBuffer())
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.arrayBuffer();
+            })
             .then((arrayBuffer) => {
                 const blob = new Blob([arrayBuffer], { type: 'image/png' });
                 const url = URL.createObjectURL(blob);
@@ -42,6 +47,7 @@
             })
             .catch((error) => {
                 console.error('Error generating QR code:', error);
+                alert('Failed to generate QR code. Please try again.');
             });
         });
     </script>

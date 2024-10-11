@@ -5,18 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Code Generator</title>
     <link rel="icon" href="./Logo.jpeg">
-    <link rel="stylesheet" type="text/css" href="./styles.css">
+    <link rel="stylesheet" href="./styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="Pr-name"><h1>QR Code Generator</h1></div>
-    <form id="qr-form">
-        <input type="text" name="text" placeholder="Enter text to generate QR code" required>
-        <input id="btn" type="submit" value="Generate QR Code">
-    </form>
-    <div id="qr-code-container" style="display: none;">
-        <img id="qr-code" src="" alt="QR Code">
-        <a id="download-link" style="display: none;">Download QR Code</a>
-    </div>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="./Logo.jpeg" alt="Logo" class="logo-img">
+                <span style="color: #ffffff;">QRGen</span> 
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Generate Stunning QR Codes Instantly</h1>
+                    <p>Fast, reliable, and elegant QR codes for your every need. Easy and free to use.</p>
+                    <form id="qr-form">
+                        <input type="text" name="text" placeholder="Enter text or URL" required>
+                        <input id="btn" type="submit" value="Generate QR Code">
+                    </form>
+                    <div id="qr-code-container" style="display: none;">
+                        <img id="qr-code" src="" alt="QR Code">
+                        <a id="download-link" style="display: none;">Download QR Code</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Generate stunning QR codes with ease.</p>
+          
+            <div class="footer-bottom">
+                <p>© 2024 QRGen. All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+    
     
     <script>
         const form = document.getElementById('qr-form');

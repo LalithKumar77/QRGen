@@ -23,7 +23,8 @@
             <div class="container">
                 <div class="hero-content">
                     <h1>Generate Stunning QR Codes Instantly</h1>
-                    <p>Fast, reliable, and elegant QR codes for your every need. Easy and free to use.</p>
+                    <p>Fast, reliable, and elegant QR codes for your every need. 
+                        <br>Easy and free to use.</p>
                     <form id="qr-form">
                         <input type="text" name="text" placeholder="Enter text or URL" required>
                         <input id="btn" type="submit" value="Generate QR Code">
@@ -40,7 +41,6 @@
     <footer>
         <div class="container">
             <p>Generate stunning QR codes with ease.</p>
-          
             <div class="footer-bottom">
                 <p>© 2024 QRGen. All rights reserved</p>
             </div>
@@ -52,6 +52,7 @@
         const form = document.getElementById('qr-form');
         form.addEventListener('submit', (e) => {
             e.preventDefault();
+
             const text = document.querySelector('input[name="text"]').value;
             fetch('/api/submit', {  
                 method: 'POST',
